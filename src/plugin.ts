@@ -12,9 +12,12 @@ function sendMessage(message: PluginMessageEvent) {
 
 penpot.ui.onMessage<{ type: string; data: any }>(async (message) => {
   if (message.type === 'create-note') {
-    const { content, includeNoteAuthor, color } = message.data
+    const { content, includeNoteAuthor, noteTheme } = message.data
     const { currentUser } = penpot
-    const noteColor = color ?? '#f0ff22'
+    const noteColor = noteTheme.backgroundColor ?? '#f0ff22'
+    const textColor = noteTheme.foregroundColor ?? '#000000'
+
+    console.log(noteColor, textColor)
 
     const board = penpot.createBoard()
     board.boardX = penpot.viewport.center.x
@@ -53,6 +56,9 @@ penpot.ui.onMessage<{ type: string; data: any }>(async (message) => {
     const text = penpot.createText(content);
     text!.growType = "auto-width"
     text!.fontSize = "18"
+    text!.fills = [
+      { fillOpacity: 1, fillColor: textColor }
+    ]
     
     board.appendChild(text!);
 
@@ -78,8 +84,11 @@ penpot.ui.onMessage<{ type: string; data: any }>(async (message) => {
       footerHorizontalFlex.horizontalPadding = 16
   
   
-      const authorName = penpot.createText(currentUser.name ?? '');
-      authorName?.resize(150, 40);
+      const authorName = penpot.createText(currentUser.name ?? ' ');
+      authorName!.resize(150, 40);
+      authorName!.fills = [
+        { fillOpacity: 1, fillColor: textColor }
+      ]
       footer.appendChild(authorName!);
   
       const imageData = await penpot.uploadMediaData(

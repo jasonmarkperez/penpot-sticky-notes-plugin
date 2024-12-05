@@ -17,7 +17,8 @@ It creates Boards so you can even use the notes inside of your designs.
 ## Features
 
 * Create simple text notes in your Penpot pages
-* Add the author data automatically (optional)
+* Option to add author data to the note
+* Option to pick a theme for the note
 
 ## How to use
 
