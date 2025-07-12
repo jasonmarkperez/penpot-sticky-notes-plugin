@@ -38,7 +38,6 @@ penpot.ui.onMessage<{ type: string; data: any }>(async (message) => {
       }
     ]
     board.resize(300, 300)
-    board.name = '📝 from ' + currentUser.name
     board.borderRadius = 8
 
     const verticalFlex = board.addFlexLayout();
